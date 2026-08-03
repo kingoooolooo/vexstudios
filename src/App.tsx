@@ -9,7 +9,7 @@ import ContactModal from "./components/ContactModal";
 
 function App() {
   return (
-    <Router>
+    <Router basename="/vexstudios">
       <PageLoader />
       <ContactModal />
       <main className="w-full min-h-screen bg-[#05060a]">
