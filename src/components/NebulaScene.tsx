@@ -1205,18 +1205,6 @@ export default function NebulaScene({ isSecondaryPage = false }: { isSecondaryPa
           </div>
         </section>
 
-        {/* Section 5 - Team */}
-        <section className="neb-sec neb-team" style={{ opacity: 0 }}>
-          <h2 className="neb-team-title">The minds behind it</h2>
-          <div className="neb-team-row">
-            <span className="neb-name">Sienna</span>
-            <span className="neb-name neb-outline">Kairo</span>
-            <span className="neb-name">Noor</span>
-            <span className="neb-name neb-outline">Theo</span>
-            <span className="neb-name">Lior</span>
-            <span className="neb-name neb-outline">Mika</span>
-          </div>
-        </section>
 
         {/* Section 6 - Contact */}
         <section className="neb-sec neb-contact" style={{ opacity: 0 }}>
@@ -1244,7 +1232,6 @@ export default function NebulaScene({ isSecondaryPage = false }: { isSecondaryPa
 
         {/* Progress rail on right side */}
         <div className="neb-rail">
-          <div className="neb-dot"></div>
           <div className="neb-dot"></div>
           <div className="neb-dot"></div>
           <div className="neb-dot"></div>
