@@ -21,7 +21,7 @@ export const genuineProjects: Project[] = [
     category: "Website Development",
     description: "A private, student-only college communication and resource-sharing platform. Features real-time department chat, permanent notes repository, verified student access, and Yufi — an AI study assistant powered by Google Gemini.",
     tags: ["Next.js", "Google Gemini AI", "WebSockets", "Tailwind CSS"],
-    image: "/projects/campus_connect.png",
+    image: import.meta.env.BASE_URL + "projects/campus_connect.png",
     liveUrl: "https://campus-connect-sam.vercel.app/",
     year: "2026"
   }
