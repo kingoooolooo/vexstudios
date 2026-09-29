@@ -4,8 +4,6 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig(async ({ mode }) => {
-  // Set base path for GitHub Pages deployment
-  const isProd = mode === 'production';
   const plugins = [react(), tailwindcss()];
   try {
     // @ts-ignore
@@ -23,6 +21,6 @@ export default defineConfig(async ({ mode }) => {
     plugins,
     envPrefix: ['VITE_', 'NEXT_PUBLIC_'],
     define: processEnvDefines,
-    base: isProd ? '/vexstudios/' : '/',
+    base: process.env.VITE_BASE_PATH || '/',
   };
 })
