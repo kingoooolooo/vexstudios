@@ -200,6 +200,7 @@ export default function Work() {
           <div className="flex gap-6">
             <Link to="/" className="hover:text-white transition-colors">Home</Link>
             <Link to="/studio" className="hover:text-white transition-colors">Studio</Link>
+            <Link to="/terms" className="hover:text-white transition-colors">Terms &amp; Policies</Link>
             <a 
               href="#contact" 
               className="hover:text-white transition-colors cursor-pointer"

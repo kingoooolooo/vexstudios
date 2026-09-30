@@ -162,6 +162,7 @@ export default function Studio() {
           <div className="flex gap-6">
             <Link to="/work" className="hover:text-white transition-colors">Work</Link>
             <Link to="/" className="hover:text-white transition-colors">Home</Link>
+            <Link to="/terms" className="hover:text-white transition-colors">Terms &amp; Policies</Link>
             <a 
               href="#contact" 
               className="hover:text-white transition-colors cursor-pointer"

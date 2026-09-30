@@ -1216,7 +1216,7 @@ export default function NebulaScene({ isSecondaryPage = false }: { isSecondaryPa
               window.dispatchEvent(new Event("open-contact-modal"));
             }}
           >
-            hello@vexstudios.studio
+            vexstudios@outlook.in
           </a>
           <div className="neb-footer">
             <div className="neb-divider"></div>
@@ -1224,8 +1224,8 @@ export default function NebulaScene({ isSecondaryPage = false }: { isSecondaryPa
               <a href="#instagram" onClick={(e) => e.preventDefault()}>Instagram</a>
               <a href="#linkedin" onClick={(e) => e.preventDefault()}>LinkedIn</a>
               <a href="#behance" onClick={(e) => e.preventDefault()}>Behance</a>
-              <a href="#privacy" onClick={(e) => e.preventDefault()}>Privacy</a>
-              <a href="#terms" onClick={(e) => e.preventDefault()}>Terms</a>
+              <Link to="/terms">Privacy</Link>
+              <Link to="/terms">Terms &amp; Policies</Link>
             </div>
           </div>
         </section>

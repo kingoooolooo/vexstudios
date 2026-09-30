@@ -180,6 +180,7 @@ export default function Services() {
             <Link to="/" className="hover:text-white transition-colors">Home</Link>
             <Link to="/work" className="hover:text-white transition-colors">Work</Link>
             <Link to="/studio" className="hover:text-white transition-colors">Studio</Link>
+            <Link to="/terms" className="hover:text-white transition-colors">Terms &amp; Policies</Link>
             <a 
               href="#contact" 
               className="hover:text-white transition-colors cursor-pointer"

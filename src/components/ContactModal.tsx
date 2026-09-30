@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Send, CheckCircle2, X } from "lucide-react";
+import { Send, CheckCircle2, X, ExternalLink, ShieldCheck, ArrowLeft } from "lucide-react";
+import { Link } from "react-router-dom";
+import { policiesData } from "../pages/Terms";
 
 export default function ContactModal() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isPoliciesOpen, setIsPoliciesOpen] = useState(false);
   
   const [formState, setFormState] = useState({
     name: "",
@@ -22,6 +25,7 @@ export default function ContactModal() {
 
   const handleClose = () => {
     setIsOpen(false);
+    setIsPoliciesOpen(false);
     setTimeout(() => {
       setIsSuccess(false);
       setFormState({name: "", email: "", service: "", message: ""});
@@ -57,7 +61,9 @@ export default function ContactModal() {
       />
 
       {/* Modal Container */}
-      <div className="relative z-10 w-full max-w-[400px] flex items-center justify-center animate-in zoom-in-95 duration-300">
+      <div className={`relative z-10 w-full transition-all duration-300 flex items-center justify-center ${
+        isPoliciesOpen ? "max-w-[700px]" : "max-w-[420px]"
+      }`}>
         <button 
           onClick={handleClose}
           className="absolute -top-12 right-0 text-white/50 hover:text-white transition-colors bg-black/20 p-2 rounded-full hover:bg-white/10"
@@ -65,7 +71,71 @@ export default function ContactModal() {
           <X size={20} />
         </button>
 
-        {isSuccess ? (
+        {isPoliciesOpen ? (
+          /* Terms & Policies Viewer inside Contact Modal */
+          <div className="contact-form w-full flex flex-col p-6 sm:p-8 max-h-[85vh] text-left">
+            <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
+              <div className="flex items-center gap-2 text-white font-['Sora'] font-bold text-lg uppercase tracking-wide">
+                <ShieldCheck size={20} className="text-[#6f8cff]" />
+                <span>Terms &amp; Policies</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Link
+                  to="/terms"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-1 text-[11px] text-[#6f8cff] hover:text-white transition-colors bg-white/5 border border-white/10 px-3 py-1.5 rounded-full"
+                  title="Open full page in new tab"
+                >
+                  <span>Full Page</span>
+                  <ExternalLink size={12} />
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => setIsPoliciesOpen(false)}
+                  className="text-white/60 hover:text-white p-1 rounded-full hover:bg-white/10 transition-colors"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+            </div>
+
+            <div className="overflow-y-auto space-y-5 pr-2 max-h-[55vh] custom-scrollbar text-xs">
+              <p className="text-[#b9c0e6] leading-relaxed">
+                Please review our official terms, payment policies, and project requirements before submitting your request.
+              </p>
+              {policiesData.map((policy) => {
+                const Icon = policy.icon;
+                return (
+                  <div key={policy.id} className="bg-black/30 border border-white/10 rounded-xl p-4">
+                    <div className="flex items-center gap-2.5 mb-2.5 text-white font-semibold">
+                      <Icon size={16} className="text-[#6f8cff]" />
+                      <span>{policy.title}</span>
+                    </div>
+                    {policy.content}
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="pt-4 border-t border-white/10 mt-4 flex items-center justify-between">
+              <button
+                type="button"
+                onClick={() => setIsPoliciesOpen(false)}
+                className="flex items-center gap-1.5 text-xs text-[#aab2da] hover:text-white transition-colors"
+              >
+                <ArrowLeft size={14} /> Back to Project Form
+              </button>
+              <button
+                type="button"
+                onClick={() => setIsPoliciesOpen(false)}
+                className="px-6 py-2.5 rounded-full bg-[#6f8cff] text-white font-['Sora'] font-bold text-xs uppercase tracking-wider hover:bg-white hover:text-black transition-all"
+              >
+                I Understand &amp; Agree
+              </button>
+            </div>
+          </div>
+        ) : isSuccess ? (
           <div className="contact-form flex flex-col items-center justify-center text-center py-12 min-h-[400px]">
              <section className="contact-bg-stars">
               <span className="contact-star"></span>
@@ -79,7 +149,7 @@ export default function ContactModal() {
             </div>
             <h3 className="font-['Sora'] text-2xl font-bold uppercase tracking-tight text-white mb-4">Transmission Sent</h3>
             <p className="text-[#aab2da] text-sm font-light leading-relaxed max-w-xs mb-8">
-              Your details are in our system. A project architect will be in touch shortly.
+              Your details are in our system. A project architect will be in touch shortly via <span className="text-[#6f8cff]">vexstudios@outlook.in</span>.
             </p>
             <button 
               onClick={handleClose}
@@ -153,6 +223,18 @@ export default function ContactModal() {
                 rows={3}
                 className="contact-input resize-none"
               />
+            </div>
+
+            {/* Terms & Policies Link Before Form Submission */}
+            <div className="text-center text-[11px] text-[#aab2da]/85 my-3.5 leading-relaxed px-1">
+              By submitting, you agree to our{" "}
+              <button
+                type="button"
+                onClick={() => setIsPoliciesOpen(true)}
+                className="text-[#6f8cff] underline hover:text-white transition-colors cursor-pointer font-medium"
+              >
+                Terms &amp; Policies
+              </button>
             </div>
 
             <button className="contact-submit" type="submit" disabled={isSubmitting}>

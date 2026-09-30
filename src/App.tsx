@@ -4,6 +4,7 @@ import Work from "./pages/Work";
 
 import Studio from "./pages/Studio";
 import Services from "./pages/Services";
+import Terms from "./pages/Terms";
 import PageLoader from "./components/PageLoader";
 import ContactModal from "./components/ContactModal";
 
@@ -18,6 +19,8 @@ function App() {
           <Route path="/work" element={<Work />} />
           <Route path="/studio" element={<Studio />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/policies" element={<Terms />} />
         </Routes>
       </main>
     </Router>
