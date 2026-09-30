@@ -6,6 +6,7 @@ import { policiesData } from "../pages/Terms";
 export default function ContactModal() {
   const [isOpen, setIsOpen] = useState(false);
   const [isPoliciesOpen, setIsPoliciesOpen] = useState(false);
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
   
   const [formState, setFormState] = useState({
     name: "",
@@ -30,12 +31,17 @@ export default function ContactModal() {
     setTimeout(() => {
       setIsSuccess(false);
       setErrorMessage("");
+      setAgreedToTerms(false);
       setFormState({name: "", email: "", service: "", message: ""});
     }, 300); // Reset after fade out
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!agreedToTerms) {
+      setErrorMessage("Please agree to the Terms & Policies before submitting.");
+      return;
+    }
     setIsSubmitting(true);
     setErrorMessage("");
     
@@ -155,7 +161,10 @@ export default function ContactModal() {
               </button>
               <button
                 type="button"
-                onClick={() => setIsPoliciesOpen(false)}
+                onClick={() => {
+                  setAgreedToTerms(true);
+                  setIsPoliciesOpen(false);
+                }}
                 className="px-6 py-2.5 rounded-full bg-[#6f8cff] text-white font-['Sora'] font-bold text-xs uppercase tracking-wider hover:bg-white hover:text-black transition-all"
               >
                 I Understand &amp; Agree
@@ -252,16 +261,29 @@ export default function ContactModal() {
               />
             </div>
 
-            {/* Terms & Policies Link Before Form Submission */}
-            <div className="text-center text-[11px] text-[#aab2da]/85 my-3.5 leading-relaxed px-1">
-              By submitting, you agree to our{" "}
-              <button
-                type="button"
-                onClick={() => setIsPoliciesOpen(true)}
-                className="text-[#6f8cff] underline hover:text-white transition-colors cursor-pointer font-medium"
-              >
-                Terms &amp; Policies
-              </button>
+            {/* Terms & Policies Checkbox Before Form Submission */}
+            <div className="flex items-center justify-center gap-2.5 my-3.5 px-2 select-none">
+              <input
+                type="checkbox"
+                id="agree-terms-checkbox"
+                required
+                checked={agreedToTerms}
+                onChange={(e) => setAgreedToTerms(e.target.checked)}
+                className="w-4 h-4 rounded cursor-pointer accent-[#6f8cff] bg-black/40 border border-white/20 transition-all focus:ring-1 focus:ring-[#6f8cff]"
+              />
+              <label htmlFor="agree-terms-checkbox" className="text-[11px] text-[#aab2da]/85 cursor-pointer leading-tight">
+                I agree to the{" "}
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setIsPoliciesOpen(true);
+                  }}
+                  className="text-[#6f8cff] underline hover:text-white transition-colors cursor-pointer font-medium"
+                >
+                  Terms &amp; Policies
+                </button>
+              </label>
             </div>
 
             {errorMessage && (
