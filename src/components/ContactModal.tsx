@@ -16,6 +16,7 @@ export default function ContactModal() {
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     const handleOpen = () => setIsOpen(true);
@@ -28,19 +29,45 @@ export default function ContactModal() {
     setIsPoliciesOpen(false);
     setTimeout(() => {
       setIsSuccess(false);
+      setErrorMessage("");
       setFormState({name: "", email: "", service: "", message: ""});
     }, 300); // Reset after fade out
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setErrorMessage("");
     
-    // Simulate network request
-    setTimeout(() => {
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body: JSON.stringify({
+          access_key: "85e49922-3242-4658-8b24-92c0628f02c9",
+          name: formState.name,
+          email: formState.email,
+          service: formState.service,
+          message: formState.message,
+          subject: `New Project Inquiry from ${formState.name} - VexStudios`,
+          from_name: "VexStudios Website"
+        })
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setIsSuccess(true);
+      } else {
+        setErrorMessage(data.message || "Failed to transmit message. Please try again.");
+      }
+    } catch (err) {
+      setErrorMessage("Network error. Please try again or email us directly at vexstudios@outlook.in");
+    } finally {
       setIsSubmitting(false);
-      setIsSuccess(true);
-    }, 1500);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -236,6 +263,12 @@ export default function ContactModal() {
                 Terms &amp; Policies
               </button>
             </div>
+
+            {errorMessage && (
+              <div className="text-[12px] text-rose-300 bg-rose-500/10 border border-rose-500/25 rounded-xl p-3 my-2 text-center leading-relaxed">
+                {errorMessage}
+              </div>
+            )}
 
             <button className="contact-submit" type="submit" disabled={isSubmitting}>
               <span className="sign-text flex items-center justify-center gap-2">
